@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IRS Interactive Form 1065</title>
+	<meta name="viewport"  content="width=device-width, initial-scale=1">
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"         ></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"     ></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.js"></script>
+	<script src="app.js"                                                                   ></script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+	<ul id="progress">
+		<li ng-click="load_part(1)" class="active"><div>Part I</div></li>
+		<li ng-click="load_part(2)"			      ><div>Part II</div></li>
+		<li ng-click="load_part(3)"               ><div>Part III</div></li>
+	</ul>
+	<div id="main">
+		<div id="header">
+			<div>
+				<h3>Schedule K-1</h3>
+				(Form 1065)
+			</div>
+			<div>
+				<h3>Partner's Share of Income, Deductions, Credits, etc.</h3>
+				<span ng-init="part='I : Information About the Partnership'">Part {{ part }}</span>
+			</div>
+			<div class="year"><span>20</span>16</div>
+		</div>
+		<div class="content">
+			<div id="left">
+				<div class="part">
+					<div class="item">
+						<div class="field_id">A</div>
+						<div class="field">
+							Partnership's employer identification number
+							<input type="text" name="field_a">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">B</div>
+						<div class="field">
+							Partnership's name, address, city, state, and ZIP code
+							<input type="text" name="field_b">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">C</div>
+						<div class="field">
+							IRS Center where partnership filed return
+							<input type="text" name="field_c">
+						</div>
+					</div>
+
+					<div class="item">
+						<div class="button previous disabled">PREVIOUS PART</div>
+						<div class="button next" ng-click="load_part(2);">NEXT PART</div>
+					</div>
+				</div>
+
+				<div class="part" style="display: none">
+					<div class="item">
+						<div class="field_id">E</div>
+						<div class="field">
+							Partner's identifying number
+							<input type="text" name="field_e">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">F</div>
+						<div class="field">
+							Partner's name, address, city, state, and ZIP code
+							<input type="text" name="field_f">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">G</div>
+						<div class="field">
+							<input type="radio" id="field_ga" name="field_g">
+							<label for="field_ga"><span><span></span></span>General partner or LLC member-manager</label>
+							<br>
+							<input type="radio" id="field_gb" name="field_g">
+							<label for="field_gb"><span><span></span></span>Limited partner or other LLC member</label>
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">H</div>
+						<div class="field">
+							<input type="radio" id="field_h_a" name="field_h">
+							<label for="field_h_a"><span><span></span></span>Domestic partner</label>
+							<br>
+							<input type="radio" id="field_h_b" name="field_h">
+							<label for="field_h_b"><span><span></span></span>Foreign partner</label>
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">I1</div>
+						<div class="field">
+							What type of entity is this partner?
+							<input type="text" name="field_i1">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">I2</div>
+						<div class="field">
+							<input type="checkbox" id="field_i2" name="field_i2">
+							<label for="field_i2"><span><span></span></span>If this partner is a retirement plan (IRA/SEP/Keogh/etc.), check here</label>
+						</div>
+					</div>
+
+					<div class="item">
+						<div class="button previous" ng-click="load_part(1)">PREVIOUS PART</div>
+						<div class="button next" ng-click="load_part(3)">NEXT PART</div>
+					</div>
+				</div>
+
+				<div class="part" style="display: none">
+					<div class="item">
+						<div class="field_id">1</div>
+						<div class="field">
+							Ordinary business income (loss)
+							<input type="text" name="field_1">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">2</div>
+						<div class="field">
+							Net rental real estate income (loss)
+							<input type="text" name="field_2">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">3</div>
+						<div class="field">
+							Other net rental income (loss)
+							<input type="text" name="field_3">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">4</div>
+						<div class="field">
+							Guaranteed payments
+							<input type="text" name="field_4">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">5</div>
+						<div class="field">
+							Interest income
+							<input type="text" name="field_5">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">6a</div>
+						<div class="field">
+							Ordinary dividends
+							<input type="text" name="field_6a">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">6b</div>
+						<div class="field">
+							Qualified dividends
+							<input type="text" name="field_6b">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">7</div>
+						<div class="field">
+							Royalties
+							<input type="text" name="field_7">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">8</div>
+						<div class="field">
+							Net short-term capital gain (loss)
+							<input type="text" name="field_8">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">9a</div>
+						<div class="field">
+							Net long-term capital gain (loss)
+							<input type="text" name="field_9a">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">9b</div>
+						<div class="field">
+							Collectibles (28%) gain (loss)
+							<input type="text" name="field_9b">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">9c</div>
+						<div class="field">
+							Unrecaptured section 1250 gain
+							<input type="text" name="field_9c">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">10</div>
+						<div class="field">
+							Net section 1231 gain (loss)
+							<input type="text" name="field_10">
+						</div>
+					</div>
+
+					<div class="item">
+						<div class="button previous" ng-click="load_part(2)">PREVIOUS PART</div>
+						<div class="button next disabled">NEXT PART</div>
+					</div>
+				</div>
+			</div>
+			<div id="right">
+				<div class="part">
+					<div class="item">
+						<div class="field_id">D</div>
+						<div class="field">
+							<input type="checkbox" name="field_d" id="field_d">
+							<label for="field_d"><span><span></span></span>Check if this is a publicly traded partnership (PTP)</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="part" style="display: none">
+					<div class="item">
+						<div class="field_id">J</div>
+						<div class="field">
+							Partner's share of profit, loss, and capital (see instructions):
+							<div class="tooltip" title="Lorem ipsum dolour">?</div>
+							<div>
+								<table class="bordered">
+									<tr>
+										<td></td>
+										<td>Beginning</td>
+										<td>Ending</td>
+									</tr>
+									<tr>
+										<td>Profit</td>
+										<td><input type="text" name="field_j_a">%</td>
+										<td><input type="text" name="field_j_b">%</td>
+									</tr>
+									<tr>
+										<td>Loss</td>
+										<td><input type="text" name="field_j_c">%</td>
+										<td><input type="text" name="field_j_d">%</td>
+									</tr>
+									<tr>
+										<td>Capital</td>
+										<td><input type="text" name="field_j_e">%</td>
+										<td><input type="text" name="field_j_f">%</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">K</div>
+						<div class="field">
+							Partner's share of liabilities at year end:
+							<table class="two_columns">
+								<tr>
+									<td>Nonrecourse</td>
+									<td>$<input type="text" name="field_k_a"></td>
+								</tr>
+								<tr>
+									<td>Qualified nonrecourse financing</td>
+									<td>$<input type="text" name="field_k_b"></td>
+								</tr>
+								<tr>
+									<td>Recourse</td>
+									<td>$<input type="text" name="field_k_c"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">L</div>
+						<div class="field">
+							Partner's capital account analysis:
+							<table class="two_columns">
+								<tr>
+									<td>Beginning capital account</td>
+									<td>$<input type="text" name="field_l_a"></td>
+								</tr>
+								<tr>
+									<td>Capital contributed during the year </td>
+									<td>$<input type="text" name="field_l_b"></td>
+								</tr>
+								<tr>
+									<td>Current year increase (decrease)</td>
+									<td>$<input type="text" name="field_l_c"></td>
+								</tr>
+								<tr>
+									<td>Withdrawals & distributions</td>
+									<td>$<input type="text" name="field_l_d"></td>
+								</tr>
+								<tr>
+									<td>Ending capital account</td>
+									<td>$<input type="text" name="field_l_e"></td>
+								</tr>
+							</table>
+							<input type="checkbox" name="l_f" id="l_f"><label for="l_f"><span><span></span></span>Tax basis</label><br>
+							<input type="checkbox" name="l_g" id="l_g"><label for="l_g"><span><span></span></span>GAAP</label><br>
+							<input type="checkbox" name="l_h" id="l_h"><label for="l_h"><span><span></span></span>Section 704(b) book</label><br>
+							<input type="checkbox" name="l_i" id="l_i"><label for="l_i"><span><span></span></span>Other</label><br>
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">M</div>
+						<div class="field">
+							Did the partner contribute property with a built-in gain or loss?
+							<input type="radio" name="m" id="m_a"><label for="m_a"><span><span></span></span>Yes</label>
+							<input type="radio" name="m" id="m_b"><label for="m_b"><span><span></span></span>No</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="part" style="display: none">
+					<div class="item">
+						<div class="field_id">11</div>
+						<div class="field">
+							Other income (loss)
+							<input type="text" name="field_11a">
+							<input type="text" name="field_11b">
+							<input type="text" name="field_11c">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">12</div>
+						<div class="field">
+							Section 179 deduction
+							<input type="text" name="field_12">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">13</div>
+						<div class="field">
+							Other deductions
+							<input type="text" name="field_13a">
+							<input type="text" name="field_13b">
+							<input type="text" name="field_13c">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">14</div>
+						<div class="field">
+							Self-employment earnings (loss)
+							<input type="text" name="field_14a">
+							<input type="text" name="field_14b">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">15</div>
+						<div class="field">
+							Credits<br>
+							<input type="text" name="field_15a">
+							<input type="text" name="field_15b">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">16</div>
+						<div class="field">
+							Foreign transactions
+							<input type="text" name="field_16a">
+							<input type="text" name="field_16b">
+							<input type="text" name="field_16c">
+							<input type="text" name="field_16d">
+							<input type="text" name="field_16e">
+							<input type="text" name="field_16f">
+							<input type="text" name="field_16g">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">17</div>
+						<div class="field">
+							Alternative minimum tax (AMT) items
+							<input type="text" name="field_17a">
+							<input type="text" name="field_17b">
+							<input type="text" name="field_17c">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">18</div>
+						<div class="field">
+							Tax-exempt income and nondeductible expenses
+							<input type="text" name="field_18a">
+							<input type="text" name="field_18b">
+							<input type="text" name="field_18c">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">19a</div>
+						<div class="field">
+							Net long-term capital gain (loss)
+							<input type="text" name="field_19a">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">19</div>
+						<div class="field">
+							Distributions
+							<input type="text" name="field_19a">
+							<input type="text" name="field_19b">
+						</div>
+					</div>
+					<div class="item">
+						<div class="field_id">20</div>
+						<div class="field">
+							Other Information
+							<input type="textarea" name="field_20">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<button id="cancel">CANCEL</button>
+			<button id="submit">SUBMIT</button>
+		</div>
+	</div>
+</body>
